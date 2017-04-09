@@ -5,10 +5,12 @@ import java.util.List;
 
 public class Submission {
 
+    private CourseInfo courseInfo = new CourseInfo();
     private String student_number;
     private String week;
     private int hours;
     private List<Boolean> tasks = new ArrayList<Boolean>();
+    private List<Boolean> tasksDone = new ArrayList<Boolean>();
     private boolean a1;
     private boolean a2;
     private boolean a3;
@@ -38,6 +40,10 @@ public class Submission {
         return tasks;
     }
 
+    public List<Boolean> getTasksDone() {
+        return tasksDone;
+    }
+
     public void setStudent_number(String student_number) {
         this.student_number = student_number;
     }
@@ -57,25 +63,24 @@ public class Submission {
         tempTasks.add(a11);
         tempTasks.add(a12);
 
-        for (Boolean b : tempTasks) {
-            if (b) {
+        for (int i = 0; i < tempTasks.size(); i++) {
+            Boolean b = tempTasks.get(i);
+            if (b != null) {
                 tasks.add(b);
             }
+
+            if (b) {
+                tasksDone.add(b);
+            }
+
         }
     }
 
-    public String tasksDoneToString(List<Boolean> tasks) {
+    public String tasksDoneToString() {
         String taskString = "";
-        for (int i = 1; i <= tasks.size(); i++) {
-            taskString += " " + i;
+        for (int i = 0; i < tasksDone.size(); i++) {
+            taskString += " " + (i + 1);
         }
         return taskString;
     }
-
-    @Override
-    public String toString() {
-        setTasks();
-        return this.week + ": tehtyjä tehtäviä yhteensä: " + getTasks().size() + ", aikaa kului " + this.hours + " tuntia, tehdyt tehtävät" + tasksDoneToString(tasks);
-    }
-
 }
