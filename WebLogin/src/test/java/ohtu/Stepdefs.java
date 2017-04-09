@@ -29,6 +29,21 @@ public class Stepdefs {
         element.click();
     }
 
+    @Given("^user with username \"([^\"]*)\" and password \"([^\"]*)\" is successfully created$")
+    public void user_with_username_and_password_is_created_and_can_login(String username, String password) throws Throwable {
+        user_selected();
+        username_and_password_and_password_confirmation_are_given_(username, password, password);
+        user_is_created();
+    }
+    
+    @Given("^user with username \"([^\"]*)\" and password \"([^\"]*)\" is unsuccessfully created$")
+    public void user_with_username_and_password_is_not_created_and_can_not_login(String username, String password) throws Throwable {
+        String error ="username should have at least 3 characters";
+        user_selected();
+        username_and_password_and_password_confirmation_are_given_(username, password, password);
+        user_is_not_created_and_error_is_reported(error);
+    }
+
     @When("^username \"([^\"]*)\" and password \"([^\"]*)\" are given$")
     public void username_and_password_are_given(String username, String password) throws Throwable {
         WebElement element = driver.findElement(By.name("username"));
